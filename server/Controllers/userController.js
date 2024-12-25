@@ -7,7 +7,7 @@ export const register = async (req, res) => {
     const { fullname, email, password } = req.body;
     if (!fullname || !email || !password) {
       return res
-        .status(403)
+        .status(400)
         .json({ success: false, message: "Please enter all fields" });
     }
     const user = await User.findOne({ email });
@@ -35,7 +35,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
       return res
-        .status(403)
+        .status(400)
         .json({ success: false, message: "Please enter all fields" });
     }
     const user = await User.findOne({ email });
@@ -73,7 +73,7 @@ export const logout = async (_, res) => {
       res
         .status(200)
         .clearCookie("token")
-        // .cookie("token", "", { maxAge: 0 })  Another way to clear cookie
+        // .cookie("token", "", { maxAge: 0 })
         .json({ success: true, message: "Logged out successfully" })
     );
   } catch (error) {

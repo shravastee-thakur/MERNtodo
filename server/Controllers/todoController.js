@@ -5,7 +5,7 @@ export const createTodo = async (req, res) => {
     const { title, description } = req.body;
     if (!title || !description) {
       return res
-        .status(403)
+        .status(400)
         .json({ success: false, message: "Please enter all fields" });
     }
 
@@ -23,7 +23,7 @@ export const getTodos = async (req, res) => {
     const todos = await Todo.find();
     return res.status(200).json({
       success: true,
-      data: todos.length === 0 ? [] : todos,
+      todos: todos,
       message: "Todos fetched successfully",
     });
   } catch (error) {}
